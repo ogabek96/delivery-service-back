@@ -1,27 +1,51 @@
-import { Controller, Post, Body, Param, Put, Get, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Param, Put, Get, Delete, UseGuards } from '@nestjs/common';
 import { OrderService } from './order.service';
+import { JwtGuard } from 'src/common/guards/jwt.guard';
+import { AuthUser } from 'src/common/decorators/auth-user.decorator';
+import { Roles } from 'src/common/decorators/roles.decorator';
+import { User } from 'src/user/user.entity';
 
-@Controller('orders')
+@UseGuards(JwtGuard)
+@Controller('/orders')
 export class OrderController {
   constructor(private orderService: OrderService) {}
-  @Post('')
+
+  @Roles('SUPER_ADMIN')
+  @Post('/')
   async create(@Body() orderData) {
     return this.orderService.create(orderData);
   }
-  @Get()
+
+  @Roles('SUPER_ADMIN')
+  @Get('/')
   async getAll() {
     return this.orderService.getAll();
   }
-  @Get(':id')
-  async getById(@Param('id') id) {
-    return this.orderService.getById(id);
+
+  @Get('/available')
+  async getAvailable() {
+    return this.orderService.getAvailable();
   }
-  @Put(':id')
-  async update(@Param('id') id, orderData) {
-    return this.orderService.update(id, orderData);
+
+  @Get('/processing')
+  async getProcessing(@AuthUser() user: User) {
+    return this.orderService.getProcessing(user);
   }
-  @Delete(':id')
+
+  @Put('/processing/close')
+  async closeProcessing(@AuthUser() user: User ) {
+    return this.orderService.closeProcessing(user);
+  }
+
+  @Put('/process/:id')
+  async process(@Param('id') id, @AuthUser() user: User ) {
+    return this.orderService.process(user, id);
+  }
+
+  @Roles('SUPER_ADMIN')
+  @Delete('/:id')
   async delete(@Param('id') id) {
     return this.orderService.delete(id);
   }
+
 }

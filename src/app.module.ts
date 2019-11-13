@@ -10,11 +10,11 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: 'sql12.freemysqlhosting.net',
       port: 3306,
-      username: 'delivery',
-      password: '6v1^KL4b%5$7',
-      database: 'delivery',
+      username: 'sql12311908',
+      password: '2cyWj6heeS',
+      database: 'sql12311908',
       entities: ['src/**/**.entity{.ts,.js}'],
       synchronize: true,
     }),
