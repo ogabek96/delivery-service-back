@@ -15,7 +15,7 @@ import { AuthModule } from './auth/auth.module';
       username: 'sql12311908',
       password: '2cyWj6heeS',
       database: 'sql12311908',
-      entities: ['src/**/**.entity{.ts,.js}'],
+      entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
     UserModule,

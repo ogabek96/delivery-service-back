@@ -1,9 +1,9 @@
 import { Controller, Post, Body, Param, Put, Get, Delete, UseGuards } from '@nestjs/common';
 import { OrderService } from './order.service';
-import { JwtGuard } from 'src/common/guards/jwt.guard';
-import { AuthUser } from 'src/common/decorators/auth-user.decorator';
-import { Roles } from 'src/common/decorators/roles.decorator';
-import { User } from 'src/user/user.entity';
+import { JwtGuard } from '../common/guards/jwt.guard';
+import { AuthUser } from '../common/decorators/auth-user.decorator';
+import { Roles } from '../common/decorators/roles.decorator';
+import { User } from '../user/user.entity';
 
 @UseGuards(JwtGuard)
 @Controller('/orders')
